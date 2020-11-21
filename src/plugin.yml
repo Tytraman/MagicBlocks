@@ -1,0 +1,11 @@
+name: "MagicBlocks"
+version: "1.0"
+author: "Tytraman"
+main: "net.kitcake.magic.Main"
+api-version: "1.16"
+description: "Magique !"
+
+commands:
+  magic:
+    description: "Ajouter ou supprimer des blocs magiques"
+    permission: "net.kitcake.magic"
