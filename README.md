@@ -2,6 +2,7 @@
 ***
 ### Ce plugin vous permet de faire des choses comme ça :</br>
 ![example_1](https://github.com/tytraman/magicblocks/blob/master/example_1.gif?raw=true)</br>
+![example_2](https://github.com/tytraman/magicblocks/blob/master/example_2.gif?raw=true)</br>
 ### Fonctionnalités :
 * Créer des groupes de blocs, ajouter / supprimer des blocs sans limitation
 * Choisir deux matériaux sur lesquels les blocs d'un groupe changeront selon un laps de temps
