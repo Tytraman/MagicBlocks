@@ -19,9 +19,6 @@ import java.util.*;
 
 public class Main extends JavaPlugin implements CommandExecutor, TabCompleter {
 
-    //TODO éviter les désynchro
-
-
     public static Main INSTANCE;
     public static File blocksFile;
     public static YamlConfiguration blocksYaml;
@@ -73,32 +70,38 @@ public class Main extends JavaPlugin implements CommandExecutor, TabCompleter {
             public void run() {
                 while(true) {
                     try {
-                        for(Map.Entry<String, Group> entry : blocks.entrySet()) {
-                            Group group = entry.getValue();
-                            if(System.currentTimeMillis() > group.getLastChange() + group.getTimer()) {
-                                Material mat = group.isItsMaterial1() ? group.getMaterial2() : group.getMaterial1();
-                                group.setItsMaterial1(!group.isItsMaterial1());
-                                if(mat != null) {
-                                    for(Block block : group.getBlocks()) {
-                                        try {
-                                            Bukkit.getScheduler().runTask(Main.INSTANCE, () -> {
-                                                try {
-                                                    block.setType(mat);
-                                                }catch(IllegalArgumentException ignored) {}
-                                            });
-                                        }catch(IllegalPluginAccessException ignored) {}
+                        // Synchronisation
+                        long now = System.currentTimeMillis();
+                        if(now > start + 10000) {
+                            for(Map.Entry<String, Group> entry : blocks.entrySet()) {
+                                entry.getValue().setLastChange(now);
+                            }
+                            start = System.currentTimeMillis();
+                        }else {
+                            for(Map.Entry<String, Group> entry : blocks.entrySet()) {
+                                Group group = entry.getValue();
+                                if(System.currentTimeMillis() > group.getLastChange() + group.getTimer()) {
+                                    Material mat = group.isItsMaterial1() ? group.getMaterial2() : group.getMaterial1();
+                                    group.setItsMaterial1(!group.isItsMaterial1());
+                                    if(mat != null) {
+                                        for(Block block : group.getBlocks()) {
+                                            try {
+                                                Bukkit.getScheduler().runTask(Main.INSTANCE, () -> {
+                                                    try {
+                                                        block.setType(mat);
+                                                    }catch(IllegalArgumentException ignored) {}
+                                                });
+                                            }catch(IllegalPluginAccessException ignored) {}
+                                        }
                                     }
+                                    group.setLastChange(System.currentTimeMillis());
                                 }
-                                group.setLastChange(System.currentTimeMillis());
                             }
                         }
                     }catch(ConcurrentModificationException ignored) {}
                 }
             }
         }.runTaskAsynchronously(this);
-
-
-
 
     }
 
