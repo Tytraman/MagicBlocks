@@ -121,12 +121,16 @@ public class Main extends JavaPlugin implements CommandExecutor, TabCompleter {
                     if(sender instanceof Player) {
                         if(args.length > 1) {
                             if(!blocks.containsKey(args[1])) {
-                                blocks.put(args[1], new Group(args[1], 5000L, null, null));
-                                blocksYaml.set("blocks." + args[1] + ".options.timer", 5000);
-                                blocksYaml.set("blocks." + args[1] + ".options.material1", ".");
-                                blocksYaml.set("blocks." + args[1] + ".options.material2", ".");
+                                if(checkName(args[1])) {
+                                    blocks.put(args[1], new Group(args[1], 5000L, null, null));
+                                    blocksYaml.set("blocks." + args[1] + ".options.timer", 5000);
+                                    blocksYaml.set("blocks." + args[1] + ".options.material1", ".");
+                                    blocksYaml.set("blocks." + args[1] + ".options.material2", ".");
+                                    sender.sendMessage(blocks.get(args[1]).addBlock(((Player)sender).getTargetBlock(null, 10)) ? ChatColor.GREEN + "Bloc ajouté au groupe !" : ChatColor.RED + "Le bloc est déjà dans le groupe.");
+                                }else {
+                                    sender.sendMessage(ChatColor.RED + "Le nom ne doit contenir que des lettres ou des chiffres et avoir un maximum de 20 caractères.");
+                                }
                             }
-                            sender.sendMessage(blocks.get(args[1]).addBlock(((Player)sender).getTargetBlock(null, 10)) ? ChatColor.GREEN + "Bloc ajouté au groupe !" : ChatColor.RED + "Le bloc est déjà dans le groupe.");
                         }else {
                             sender.sendMessage(ChatColor.RED + "/magic add <nom du groupe>");
                         }
@@ -299,5 +303,17 @@ public class Main extends JavaPlugin implements CommandExecutor, TabCompleter {
         }
         Collections.sort(list);
         return list;
+    }
+
+    public static boolean checkName(String value) {
+        if(value.length() > 20) {
+            return false;
+        }
+        for(char c : value.toCharArray()) {
+            if(!((c >= 65 && c <= 90) || (c >= 97 && c <= 122) || (c >= 48 && c <= 57))) {
+                return false;
+            }
+        }
+        return true;
     }
 }
