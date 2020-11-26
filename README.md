@@ -13,7 +13,7 @@
 ### Liste des commandes :
 * `/magic add <nom du groupe>` - Ajoute le bloc visé dans le groupe spécifié
 * `/magic remove <nom du groupe>` - Retire le bloc visé du groupe spécifié
-* `/magic settimer <nom du groupe>` - Change le laps de temps entre chaque changement de bloc du groupe spécifié *(temps en millisecondes)*
+* `/magic settimer <nom du groupe> <temps>` - Change le laps de temps entre chaque changement de bloc du groupe spécifié *(temps en millisecondes)*
 * `/magic showtimer <nom du groupe>` - Affiche le laps de temps du groupe spécifié
 * `/magic replace <nom du groupe> <matériel 1> <matériel 2>` - Détermine les blocs voulus dans le groupe spécifié, liste des items existants dans Minecraft : https://minecraft-ids.grahamedgecombe.com
 * `/magic showmaterials <nom du groupe>` - Affiche les matériaux du groupe spécifié
