@@ -1,5 +1,5 @@
 name: "MagicBlocks"
-version: "1.0"
+version: "1.2"
 author: "Tytraman"
 main: "net.kitcake.magic.Main"
 api-version: "1.16"

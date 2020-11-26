@@ -130,6 +130,8 @@ public class Main extends JavaPlugin implements CommandExecutor, TabCompleter {
                                 }else {
                                     sender.sendMessage(ChatColor.RED + "Le nom ne doit contenir que des lettres ou des chiffres et avoir un maximum de 20 caractères.");
                                 }
+                            }else {
+                                sender.sendMessage(blocks.get(args[1]).addBlock(((Player)sender).getTargetBlock(null, 10)) ? ChatColor.GREEN + "Bloc ajouté au groupe !" : ChatColor.RED + "Le bloc est déjà dans le groupe.");
                             }
                         }else {
                             sender.sendMessage(ChatColor.RED + "/magic add <nom du groupe>");
